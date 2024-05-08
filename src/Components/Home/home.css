@@ -1,0 +1,56 @@
+.h-left{
+    width: 50%;
+    margin-top: 150px;
+}
+
+.btn{
+    margin: 30px 0;
+}
+.h-wrap{
+    gap: 26rem;
+    position: relative;
+}
+#frame6{
+    position: absolute;
+    z-index: 1;
+    right: 10%;
+}
+#img{
+    position: absolute;
+    z-index: 2;
+    top: 27%;
+}
+#img2{
+    z-index: 3;
+    position: absolute;
+    right: 12%;
+    top: 43%;
+}
+#dots{
+    position: absolute;
+    top: 110%;
+    right: 7%;
+}
+/* #circle1{
+    border: 2px solid rgba(136, 160, 255, 0.25);
+    padding: 3px;
+    border-radius: 50%;
+}
+#circle3{
+    border: 2px solid rgba(136, 160, 255, 0.25);
+    padding: 3px;
+    border-radius: 50%;
+}
+#circle2{
+    right: 20%;
+    position: absolute;
+    top: 32%;
+    border: 2px solid rgba(136, 160, 255, 0.25);
+    padding: 3px;
+    border-radius: 50%;
+} */
+#box{
+    position: absolute;
+    top: 70%;
+    right: 14%;
+}
