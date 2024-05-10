@@ -11,6 +11,9 @@
   --shadow: 0px 23px 21px -8px rgba(136, 160, 255, 0.25);
   --black: black;
 }
+/* body{
+  overflow: hidden;
+} */
 
 * {
   margin: 0;
@@ -80,12 +83,17 @@ a {
   font-size: 0.9rem;
 }
 .orangeText {
-  color: orange;
+  color: rgb(17, 150, 190);
   font-size: 1.5rem;
   font-weight: 600;
 }
+.blueText {
+  color: rgb(7, 108, 175);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
 
-.button{
+.buttonn{
   font-weight: 500;
   padding: 0.6rem 1.4rem;
   color: aliceblue;
@@ -93,10 +101,28 @@ a {
   border: none;
   border-radius: 4px;
   transition: all 300ms ease-in;
+  margin-top: 20px;
 }
-.button:hover{
+.button-black{
+  font-weight: 500;
+  padding: 0.6rem 1.4rem;
+  width: 120px;
+  color: black;
+  background: transparent;
+  border:0.5px solid grey;
+  border-radius: 4px;
+  transition: all 300ms ease-in;
+  margin-top: 20px;
+}
+.buttonn:hover{
   cursor: pointer;
   transform: scale(1.1);
+}
+.button-black:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  background: black;
+  color: white;
 }
 
 /* media queries */

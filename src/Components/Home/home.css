@@ -1,6 +1,6 @@
 .h-left{
     width: 50%;
-    margin-top: 150px;
+    margin-top: 120px;
 }
 
 .btn{
@@ -14,16 +14,19 @@
     width: 400px;
     height: 400px;
     margin-top: 40px;
-    background-color: rgb(27, 186, 214);
+    background-color: rgb(123, 193, 233);
     border-radius: 20px;
     position: relative;
+    z-index: auto;
 }
 .image-container>img{
     margin-top: -30px;
+    
 }
 .image-container>:nth-child(2){
     position: absolute;
-    z-index: -2;
+    
+    
 }
 .image-container>:nth-child(3){
     position: absolute;
@@ -31,3 +34,17 @@
     right: 80%;
     bottom: -15%;
 }
+.stats{
+    width: 100%;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 60px;
+}
+.stat>:nth-child(1){
+    font-size: 2rem;
+    font-weight: 700;
+}
+.stat>:nth-child(1)>:last-child{
+    color: rgb(25, 105, 209);
+}
+
