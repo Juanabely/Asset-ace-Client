@@ -14,19 +14,26 @@ const [display,setDisplay]=useState('assets');
 
   return (
     <section className="content">
-        <OutsideClickHandler
+       
+
+        <div className="flexCenter innerWidth paddings content-wrapper"> <OutsideClickHandler
   onOutsideClick={(event) => {
-    if (!['button-black'].includes(event.target.className)) {
-      setIsOpen(false);
+    if(document.documentElement.clientWidth > 640){
+        setIsOpen(true)
     }
+    else{
+        if (!['button-black'].includes(event.target.className)) {
+        setIsOpen(false);
+      }
+    }
+    
+    
   }}
 >
   {/* Your content here */}
 </OutsideClickHandler>
-
-        <div className="flexCenter innerWidth paddings content-wrapper">
             {
-                isOpen?<div className="flexColCenter content-right">
+                isOpen?<div className="flexColCenter content-right rit" >
                 <button className="buttonn">Admin</button>
                 <div className="circle"/>
                 <span className='span'>Admin</span>

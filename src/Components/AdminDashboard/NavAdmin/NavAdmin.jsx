@@ -15,7 +15,7 @@ function NavAdmin({setIsOpen}) {
         <nav>
     <div class="nav-wrapper white">
    
-      <a href="#!" class="brand-logo"><i class="material-icons"><span className='menu' onClick={()=>setIsOpen(true)}> <MenuUnfoldOutlined /></span></i><img src="./logo.svg" alt="" /> <span className='asset-ace'>Asset-Ace</span>  </a>
+      <a href="#!" class="brand-logo"><i class="material-icons"><span className='menu' onClick={()=>setIsOpen((prev)=>!prev)}> <MenuUnfoldOutlined /></span></i><img src="./logo.svg" alt="" /> <span className='asset-ace'>Asset-Ace</span>  </a>
       
       <ul class="right hide-on-med-and-down">
         <li><SearchBar/></li>
