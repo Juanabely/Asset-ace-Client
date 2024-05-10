@@ -47,4 +47,25 @@
 .stat>:nth-child(1)>:last-child{
     color: rgb(25, 105, 209);
 }
+@media (max-width: 640px) {
+    .h-left{
+        width: 80%;
+    }
+    .image-container{
+        width: 90%;
+        position: relative;
+    }
+    .dot1{
+        position: absolute;
+        top: 0;
+        right: -20%;
+    }
+    .dot2{
+        position: absolute;
+
+    }
+    
+    
+  }
+
 

@@ -21,7 +21,7 @@ function Header() {
         marginLeft:'15px'
 
       }} />
-      <span>Asset-Ace</span>
+      <span className='asset-ace'>Asset-Ace</span>
       </a>
       
       <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons"><MenuUnfoldOutlined /></i></a>

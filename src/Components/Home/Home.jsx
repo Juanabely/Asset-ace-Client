@@ -39,8 +39,8 @@ function Home() {
                         className="image-container"
                         > 
                 <img src="./image9.svg" alt="" />
-                <img src="./Group.svg" alt="" />
-                <img src="./Group.svg" alt="" />
+                <img src="./Group.svg" alt="" className='dot1'/>
+                <img src="./Group.svg" alt="" className='dot2'/>
              </motion.div>
             </div>
 

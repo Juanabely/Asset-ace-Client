@@ -3,7 +3,7 @@ import About from "./Components/About/About"
 import Contact from "./Components/Contact/Contact"
 import Footer from "./Components/Footer/Footer"
 import Companies from "./Components/Home/Companies/Companies"
-import Header from "./Components/Home/Hero/Header"
+import Header from "./Components/Home/Header/Header"
 import Home from "./Components/Home/Home"
 
 
