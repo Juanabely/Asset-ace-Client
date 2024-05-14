@@ -12,7 +12,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const { login ,users,activeUser } = useContext(AuthContext); // Use the login function from the AuthContext
+  const { login ,users,setActiveUser } = useContext(AuthContext); // Use the login function from the AuthContext
   const navigate = useNavigate();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/admin" } };
@@ -29,6 +29,7 @@ const Login = () => {
 
       if (matcheduser) {
         login();
+        setActiveUser(matcheduser)
         
         // Pass the user's details to the login function
         console.log('login successfull')
@@ -43,14 +44,15 @@ const Login = () => {
       } else {
         alert('Invalid credentials. Please check and try again.');
       }
-      await fetch('http://192.168.56.1:3000/active-user',
-      {
-       method:'POST',
-       headers:{
-        'Content-Type':'application/json'
-       } ,
-       body:JSON.stringify({username:matcheduser.username,role:matcheduser.role,email:matcheduser.email, id:matcheduser.id,image:matcheduser.image})
-      })
+      // await fetch('http://192.168.56.1:3000/active-user',
+      // {
+      //  method:'POST',
+      //  headers:{
+      //   'Content-Type':'application/json'
+      //  } ,
+      //  body:JSON.stringify({username:matcheduser.username,role:matcheduser.role,email:matcheduser.email, id:matcheduser.id,image:matcheduser.image})
+      // })
+      
     },
   });
 

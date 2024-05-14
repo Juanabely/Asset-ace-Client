@@ -28,12 +28,12 @@ const employeeComponent= users.map((item)=>(
     role={item.role}
     />
 ))
-const buttonComponent= activeUser.map((item)=>(
+const buttonComponent=(
     <ProfileButton
-    name={item.name}
-    email={item.email}
+    name={activeUser.name}
+    email={activeUser.email}
     />
-))
+)
     
 
 
@@ -60,8 +60,8 @@ const buttonComponent= activeUser.map((item)=>(
 </OutsideClickHandler>
             {
                 isOpen?<div className="flexColCenter content-right rit" >
-                <button className="buttonn">{activeUser[0].role}</button>
-                <div className="circle"><img src={activeUser[0].image} alt="profile" /></div>
+                <button className="buttonn">{activeUser.role}</button>
+                <div className="circle"><img src={activeUser.image} alt="profile" /></div>
                 <span className='span'>Admin</span>
                 <span className='span2'>Refresh profile</span>
                 <button className="button-black">{buttonComponent}</button>

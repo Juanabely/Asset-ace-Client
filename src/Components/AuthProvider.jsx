@@ -14,8 +14,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = () => {
     setIsAuthenticated(true);
-  
-    
   };
 
   async function deleteUser() {
@@ -47,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     deleteUser();
     // You can customize other logout actions (e.g., clear tokens, reset state)
     setIsAuthenticated(false);
-    
+    setActiveUser(null)
   };
 
   useEffect(() => {
@@ -57,13 +55,10 @@ export const AuthProvider = ({ children }) => {
     axios.get('http://192.168.56.1:3000/assets')
       .then((response) => setAssets(response.data))
       .catch((error) => console.error('Error fetching assets:', error));
-    axios.get('http://192.168.56.1:3000/active-user')
-      .then((response) => setActiveUser(response.data))
-      .catch((error) => console.error('Error fetching active users:', error));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, users, assets, activeUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, users, assets, activeUser,setActiveUser }}>
       {children}
     </AuthContext.Provider>
   );

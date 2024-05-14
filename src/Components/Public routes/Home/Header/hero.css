@@ -4,5 +4,7 @@
   }
   nav{
     box-shadow: none !important;
+    width: 100%;
+    background-color: white;
   }
   

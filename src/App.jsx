@@ -12,19 +12,7 @@ import { AuthContext } from "./Components/AuthProvider"
 
 
 function App() {
-  const navigate= useNavigate()
-  const {logout}=useContext(AuthContext)
-
-  useEffect(()=>{
-    const handleBackButton = () =>{
-      logout()
-      navigate('/form')
-    }
-    window.onpopstate = handleBackButton
-    return()=>{
-      window.onpopstate = null
-    }
-  },[navigate,logout])
+  
   return (
     <>
       <section className="app">
