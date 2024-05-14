@@ -10,7 +10,7 @@ import {
 } from 'react-accessible-accordion'
 import 'react-accessible-accordion/dist/fancy-example.css'
 import {DownOutlined } from '@ant-design/icons'
-import data from '../../assets/Accordion'
+import data from '../../../assets/Accordion'
 import { useState } from 'react'
 
 function About() {

@@ -1,15 +1,15 @@
 import React,{useState} from 'react'
-import SearchBar from './Search'
+import SearchBar from './SearchUser'
 import { BellOutlined,BgColorsOutlined } from '@ant-design/icons'
 import { CgProfile } from "react-icons/cg";
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 
 
 import 'materialize-css/dist/css/materialize.min.css';
-import './navadmin.css'
-import AddUserButton from './AddUserButton';
+import './navuser.css'
+import AddUserButton from './AddUserButtonUser';
 
-function NavAdmin({setIsOpen}) {
+function NavUser({setIsOpen}) {
   
   return (
     <section className="nav-admin">
@@ -20,20 +20,17 @@ function NavAdmin({setIsOpen}) {
       
       <ul class="right hide-on-med-and-down">
         <li><SearchBar/></li>
-        <li><a href="Text" style={{
-            fontSize:'20px',
-            margin:'0 20px 0 0'
-        }}>Add asset</a></li>
+        
         <li><a href=""><BgColorsOutlined style={{
             fontSize:'22px'
         }}/></a></li>
         <li><a href="mobile.html"><i class="material-icons"><BellOutlined /></i></a></li>
+        <li><a href="mobile.html"><i class="material-icons"><AddUserButton/></i></a></li>
       </ul>
-     <div className='flexCenter'> <AddUserButton/></div>
     </div>
   </nav>
     </section>
   )
 }
 
-export default NavAdmin
+export default NavUser

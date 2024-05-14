@@ -124,6 +124,11 @@ a {
   background: black;
   color: white;
 }
+.formik{
+  margin-top: 200px;
+  width: 100vw !important;
+  height: 100%;
+}
 
 /* media queries */
 @media (min-width: 1536px) {

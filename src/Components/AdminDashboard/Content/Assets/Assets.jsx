@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card } from 'antd';
-import data from '../../../../assets/assets.json'
+import { AuthContext } from '../../../AuthProvider';
+
+
 const { Meta } = Card;
-const Assets = () => (
-    <section className="flexCenter innerWidth  assets">
+const Assets=(props)=>{
+  return(
+    <section className="   assets">
         {
-            data.map((item,i)=>(
+            
                <Card
     hoverable
-    key={i}
+    key={props.id}
     style={{
-      width: 250,
+      width: 270,
       outline:'1px solid rgba(128, 128, 128, 0.404)',
-      padding:'2px'
+      padding:'2px',
+      
       
     }}
-    cover={<img alt="example" src={item.image} />}
+    cover={<img alt="example" src={props.image} style={{
+      maxHeight:'200px'
+    }} />}
   >
-    <Meta title={item.name} description="www.instagram.com" />
+    <Meta title={props.name} description="www.instagram.com" />
   </Card> 
-            ))
+            
             
         }
         
         </section>
   
 );
+} 
 export default Assets;

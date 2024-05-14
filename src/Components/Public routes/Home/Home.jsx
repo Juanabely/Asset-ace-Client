@@ -21,8 +21,8 @@ function Home() {
                 with Asset-Ace <br />
                 <p className="secondaryText">Welcome to Asset-Ace, your premier asset management system! We’re thrilled to have you on board and are confident that our platform will streamline your asset management processes, making them more efficient and effective. Thank you for choosing Asset-Ace. We’re excited to be a part of your asset management success story!</p>
                 </span>
+                <Link to='/form'><button className='buttonn'>Get started</button></Link>
                 
-                <button className='buttonn'>Get started</button>
             </motion.div>
             <div className="flexCenter h-right">
             <motion.div 

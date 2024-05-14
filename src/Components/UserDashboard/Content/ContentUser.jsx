@@ -1,41 +1,23 @@
-import React,{useState,useContext, useEffect} from 'react'
-import './content.css'
-import SearchBar2 from './SearchBar2'
-import Drop from './Drop'
+import React,{useState,useEffect} from 'react'
+import './contentuser.css'
+import SearchBar2User from './SearchBar2User'
+import DropUser from './DropUser'
 import { BsFillFilterSquareFill } from "react-icons/bs";
-import Assets from './Assets/Assets';
+import AssetsUser from './Assets/AssetsUser';
 import Footer from '../../Public routes/Footer/Footer'
 import OutsideClickHandler from 'react-outside-click-handler'
-import Employees from './Assets/Employees';
-import { AuthContext } from '../../AuthProvider';
-import ProfileButton from './Profile';
+import EmployeesUser from './Assets/EmployeesUser';
 
 
-
-function Content({ isOpen,setIsOpen }) {
+function ContentUser({ isOpen,setIsOpen }) {
 const [display,setDisplay]=useState('assets');
-const {activeUser, assets,users} = useContext(AuthContext);
-const assetComponent= assets.map((item)=>(
-    <Assets
-    name={item.name}
-    image={item.image}
-    />
-))
-const employeeComponent= users.map((item)=>(
-    <Employees
-    name={item.name}
-    image={item.image}
-    role={item.role}
-    />
-))
-const buttonComponent= activeUser.map((item)=>(
-    <ProfileButton
-    name={item.name}
-    email={item.email}
-    />
-))
-    
-
+const[items,setItems]=useState([])
+useEffect(()=>{
+    fetch("http://192.168.8.20:3000/wines")
+    .then((response)=>response.json())
+    .then((data)=>setItems(data))
+    .catch((error)=> console.error('error 123',error))
+}, []);
 
 
   return (
@@ -60,13 +42,13 @@ const buttonComponent= activeUser.map((item)=>(
 </OutsideClickHandler>
             {
                 isOpen?<div className="flexColCenter content-right rit" >
-                <button className="buttonn">{activeUser[0].role}</button>
-                <div className="circle"><img src={activeUser[0].image} alt="profile" /></div>
-                <span className='span'>Admin</span>
+                <button className="buttonn">user</button>
+                <div className="circle"/>
+                <span className='span'>user</span>
                 <span className='span2'>Refresh profile</span>
-                <button className="button-black">{buttonComponent}</button>
-                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('assets'); }} >Assets</button>
-<button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('employees'); }}>Employees</button>
+                <button className="button-black">Profile</button>
+                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('assets'); }} >My Assets</button>
+<button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('employees'); }}>Assets</button>
 
                 <button className="button-black">Message</button>
                 <button className="button-black">Reviews</button>
@@ -80,7 +62,7 @@ const buttonComponent= activeUser.map((item)=>(
                         display === 'assets' &&(
                             <>
                             <span className="blueText title">
-                        Assets({assets.length})</span>
+                        Assets(12)</span>
                             </>
                         )
                     }
@@ -88,7 +70,7 @@ const buttonComponent= activeUser.map((item)=>(
                         display === 'employees' &&(
                             <>
                             <span className="blueText title">
-                        Employees({users.length})</span>
+                        Employees({items.length})</span>
                             </>
                         )
                     }
@@ -107,15 +89,15 @@ const buttonComponent= activeUser.map((item)=>(
                 <div className="flexCenter innerWidth bottom">
                     {
                         display === 'assets' && (
-                            <div className="innerWidth flexCenter asset-display">
-                                {assetComponent}
+                            <div className="asset-display">
+                                <Assets/>
                             </div>
                         )
                     }
                     {
                         display === 'employees' && (
-                            <div className="innerWidth flexCenter asset-display">
-                               {employeeComponent}
+                            <div className="asset-display">
+                               <Employees/>
                             </div>
                         )
                     }
@@ -130,4 +112,4 @@ const buttonComponent= activeUser.map((item)=>(
   )
 }
 
-export default Content
+export default ContentUser
