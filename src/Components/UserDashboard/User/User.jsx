@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import NavUser from '../Nav User/NavUser';
 import ContentUser from '../Content/ContentUser';
-// import { AuthContext } from '../../AuthProvider';
+import { AuthContext } from '../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 function User() {
   const [isOpen, setIsOpen] = useState(true);
-  const { isAuthenticated, logout } = useContext(AuthContext); // Get login and logout from AuthContext
+  const { isAuthenticated,activeUser,assets } = useContext(AuthContext); 
   const navigate = useNavigate();
+  // const [searchQuery, setSearchQuery] = useState('');
 
   // Debugging: Log authentication status
-  console.log('Is authenticated:', isAuthenticated);
+  console.log('Is authenticated:', isAuthenticated,assets);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -19,38 +20,12 @@ function User() {
     }
   }, [isAuthenticated, navigate]);
 
-  // Call logout when the component unmounts
-  // useEffect(() => {
-  //   return () => {
-  //     logout(); // Logout the user when leaving the page
-  //   };
-  // }, [logout]);
-
-  // This function will run when the user leaves the page
-  const handleBeforeUnload = async (event) => {
-    event.preventDefault();
-    // Call your API to delete the active user
-    await fetch('http://localhost:3000/active-user', { method: 'DELETE' });
-  };
-
-  // If the user is authenticated, add the event listener
-  useEffect(() => {
-    if (isAuthenticated) {
-      window.addEventListener('beforeunload', handleBeforeUnload);
-    }
-
-    // Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [isAuthenticated]);
-
   // Return JSX if authenticated
   if (isAuthenticated) {
     return (
       <section className="admin">
-        <NavUser setIsOpen={setIsOpen} />
-        <ContentUser isOpen={isOpen} setIsOpen={setIsOpen} />
+        <NavUser setIsOpen={setIsOpen}  />
+        <ContentUser isOpen={isOpen} setIsOpen={setIsOpen} activeUser={activeUser} />
       </section>
     );
   }

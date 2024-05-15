@@ -23,7 +23,7 @@ const assetComponent= assets.map((item)=>(
 ))
 const employeeComponent= users.map((item)=>(
     <Employees
-    name={item.name}
+    name={item.username}
     image={item.image}
     role={item.role}
     />
