@@ -27,7 +27,7 @@ function NavAdmin({setIsOpen}) {
         <li><a href=""><BgColorsOutlined style={{
             fontSize:'22px'
         }}/></a></li>
-        <li><a href="mobile.html"><i class="material-icons"><BellOutlined /></i></a></li>
+    
       </ul>
      <div className='flexCenter'> <AddUserButton/></div>
     </div>

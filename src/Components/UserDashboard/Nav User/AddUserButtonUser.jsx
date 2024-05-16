@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, Input } from 'antd';
+import { Button, Modal, Form, Input, Select, DatePicker } from 'antd';
 
 const AddUserButtonUser = () => {
   const [visible, setVisible] = useState(false);
-  const [form] = Form.useForm(); // Create a form instance
+  const [form] = Form.useForm();
 
   const handleShowModal = () => {
     setVisible(true);
@@ -16,7 +16,7 @@ const AddUserButtonUser = () => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields(); // Validate form fields
-      const response = await fetch('http://192.168.8.20:3000/users', {
+      const response = await fetch('http://192.168.8.20:3000/assets', {
         method: 'post',
         headers: {
           'content-type': 'application/json',
@@ -25,46 +25,75 @@ const AddUserButtonUser = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add user');
+        throw new Error('Failed to request asset');
       }
 
-      console.log('User added successfully');
-      alert('User added successfully');
+      console.log('Asset requested successfully');
+      alert('Asset requested successfully');
       form.resetFields(); // Clear form fields
       setVisible(false); // Close the modal
     } catch (error) {
-      console.error('Adding user failed:', error);
-      alert('Adding user failed. Please retry after a few seconds.');
+      console.error('Requesting asset failed:', error);
+      alert('Requesting asset failed. Please retry after a few seconds.');
     }
   };
 
   return (
     <div>
       <Button type="primary" onClick={handleShowModal}>
-        Request asset
+        Request Asset
       </Button>
       <Modal
-        title="Add User"
+        title="Request Asset"
         visible={visible}
         onCancel={handleCancel}
         footer={null} // Hide the default footer
       >
         <Form form={form}>
-          <Form.Item label="User Name" name="userName" rules={[{ required: true }]}>
-            <Input placeholder="Enter user's name" />
+          <Form.Item label="Asset Name" name="name" rules={[{ required: true }]}>
+            <Input placeholder="Enter asset name" />
           </Form.Item>
-          <Form.Item label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
-            <Input placeholder="Enter user's email" />
+          <Form.Item label="Description" name="description" rules={[{ required: true }]}>
+            <Input placeholder="Enter asset description" />
           </Form.Item>
-          <Form.Item label="Password" name="password" rules={[{ required: true }]}>
-            <Input.Password placeholder="Enter user's password" />
+          <Form.Item label="Quantity" name="quantity" rules={[{ required: true }]}>
+            <Input type="number" min={1} placeholder="Enter quantity" />
           </Form.Item>
-          <Form.Item label="Confirm Password" name="confirmPassword" rules={[{ required: true }]}>
-            <Input.Password placeholder="Confirm user's password" />
+          <Form.Item label="Reason for Request" name="reason" rules={[{ required: true }]}>
+            <Input placeholder="Enter reason for request" />
           </Form.Item>
-          {/* Add more form fields as needed */}
+          <Form.Item label="Priority Level" name="priority" rules={[{ required: true }]}>
+            <Select>
+              <Select.Option value="low">Low</Select.Option>
+              <Select.Option value="medium">Medium</Select.Option>
+              <Select.Option value="high">High</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Date Required" name="dateRequired" rules={[{ required: true }]}>
+            <DatePicker />
+          </Form.Item>
+          <Form.Item label="Department" name="department" rules={[{ required: true }]}>
+            <Input placeholder="Enter department" />
+          </Form.Item>
+          <Form.Item label="Manager Approval" name="managerApproval" rules={[{ required: true }]}>
+            <Select>
+              <Select.Option value="no">No</Select.Option>
+              <Select.Option value="yes">Yes</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Previously Owned" name="previouslyOwned">
+            <Select>
+              <Select.Option value="no">No</Select.Option>
+              <Select.Option value="yes">Yes</Select.Option>
+            </Select>
+          </Form.Item>
+          {form.getFieldValue('previouslyOwned') === 'yes' && (
+            <Form.Item label="What happened to the previous asset?" name="previousAssetDetails">
+              <Input placeholder="Explain what happened" />
+            </Form.Item>
+          )}
           <Button type="primary" onClick={handleSubmit}>
-            Save
+            Request
           </Button>
         </Form>
       </Modal>
@@ -73,3 +102,5 @@ const AddUserButtonUser = () => {
 };
 
 export default AddUserButtonUser;
+
+

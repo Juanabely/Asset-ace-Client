@@ -49,10 +49,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    axios.get('http://192.168.56.1:3000/users')
+    axios.get('http://localhost:3000/users')
       .then((response) => setUsers(response.data))
       .catch((error) => console.error('Error fetching users:', error));
-    axios.get('http://192.168.56.1:3000/assets')
+    axios.get('http://localhost:3000/assets')
       .then((response) => setAssets(response.data))
       .catch((error) => console.error('Error fetching assets:', error));
   }, []);

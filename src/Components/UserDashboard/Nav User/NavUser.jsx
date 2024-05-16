@@ -8,6 +8,7 @@ import { MenuUnfoldOutlined } from '@ant-design/icons';
 import 'materialize-css/dist/css/materialize.min.css';
 import './navuser.css'
 import AddUserButton from './AddUserButtonUser';
+import AddUserButtonUser from './AddUserButtonUser';
 
 function NavUser({setIsOpen}) {
   
@@ -25,8 +26,10 @@ function NavUser({setIsOpen}) {
             fontSize:'22px'
         }}/></a></li>
         <li><a href="mobile.html"><i class="material-icons"><BellOutlined /></i></a></li>
-        <li><a href="mobile.html"><i class="material-icons"><AddUserButton/></i></a></li>
+      
       </ul>
+
+      <div className='flexCenter'><AddUserButtonUser /></div>
     </div>
   </nav>
     </section>
