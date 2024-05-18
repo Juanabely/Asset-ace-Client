@@ -169,7 +169,10 @@ const [display,setDisplay]=useState('assets');
                         display === 'message' && (
                             messages.length > 0 ?(<div className="innerWidth flexCenter asset-display">
                                {messageUserComponent}
-                            </div>):( <p className='orangeText'> No notifications at the moment. <br /> <p>Refresh page </p></p>)
+                            </div>):( <div className="empty">
+                              <div className="message-empty"><p className='orangeText' >No messages at the moment.</p></div>
+                              <div className="img-empty"><img src="./public/empty.svg" alt="" /></div>
+                            </div>)
                             
                         )
                     }

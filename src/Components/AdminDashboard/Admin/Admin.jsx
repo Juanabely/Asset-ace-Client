@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Admin() {
   const [isOpen, setIsOpen] = useState(true);
-  const { isAuthenticated, logout,requests } = useContext(AuthContext);
+  const { isAuthenticated, logout, requests, fetchRequests } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -18,21 +18,22 @@ function Admin() {
     setLoading(false); // Mark loading as complete
   }, [isAuthenticated, navigate]);
 
-  useEffect(()=>{
-    const handleBackButton = () =>{
-      logout()
-      navigate('/form')
-    }
-    window.onpopstate = handleBackButton
-    return()=>{
-      window.onpopstate = null
-    }
-  },[navigate,logout])
+  useEffect(() => {
+    const handleBackButton = () => {
+      logout();
+      navigate('/form');
+    };
+    window.onpopstate = handleBackButton;
+    return () => {
+      window.onpopstate = null;
+    };
+  }, [navigate, logout]);
 
   if (loading) {
     return null; // Render nothing while loading
   }
-  
+
+  fetchRequests();
 
   return (
     <section className="admin">

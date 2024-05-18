@@ -7,7 +7,7 @@
       "email": "danspmunene@gmail.com",
       "password": "12345678!q",
       "confirmPassword": "12345678!q",
-      "image": "https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "image": "https://images.playground.com/2985ba92c9dd4aed845f03fd21efe46a.jpeg",
       "id": "1"
     },
     {
@@ -17,7 +17,7 @@
       "email": "wolf@gmail.com",
       "password": "12345678!q",
       "confirmPassword": "12345678!q",
-      "image": "https://img.freepik.com/free-photo/african-american-business-woman-by-window_1303-10869.jpg?size=626&ext=jpg",
+      "image": "https://images.playground.com/5121d5ddd0da4365b02a8ee5f4ea75f0.jpeg",
       "id": "2"
     },
     {
@@ -27,16 +27,17 @@
       "username": "koech",
       "email": "eugene@gmail.com",
       "password": "12345678@a",
+      "image":"https://images.playground.com/b77aa77a07be4737abf75a30ed57e006.jpeg",
       "confirmPassword": "12345678@a"
     },
     {
       "id": "ab61",
-      "role": "cleaning",
+      "role": "Developer",
       "username": "abelkipkorir185@gmail.com",
       "assetId": 1,
       "email": "abelkipkorir185@gmail.com",
       "password": "12345678A@",
-      "image": "https://plus.unsplash.com/premium_photo-1661346049502-68fe74f3e600?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2VjdXJpdHklMjBtYW58ZW58MHx8MHx8fDA%3D",
+      "image": "https://images.playground.com/e7a0b7e796764631b63c9d6bb41761a0.jpeg",
       "confirmPassword": "12345678A@"
     },
     {
@@ -47,7 +48,7 @@
       "email": "eliud@gmail.com",
       "password": "12345678",
       "confirmPassword": "12345678",
-      "image": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hlZiUyMGNvb2tpbmd8ZW58MHx8MHx8fDA%3D"
+      "image": "https://images.playground.com/09ce4708051f4849996fe1bc4bcb2c86.jpeg"
     },
     {
       "id": "b97f",
@@ -57,7 +58,7 @@
       "email": "achumba52@gmail.com",
       "password": "Makiche1",
       "confirmPassword": "Makiche1",
-      "image": "https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=600"
+      "image": "https://images.playground.com/868832cdcf7f4bddb9212be429a00ff0.jpeg"
     },
     {
       "id": "8c29",
@@ -65,6 +66,7 @@
       "assetId": 5,
       "userName": "sang",
       "email": "sang@gmail.com",
+      "image":"https://images.playground.com/2748383f787f4227bcdfa67de35c36a5.jpeg",
       "password": "12345678",
       "confirmPassword": "12345678"
     }
@@ -146,22 +148,10 @@
   "requests": [],
   "approved": [
     {
-      "id": "781b",
-      "userId": "8c29",
-      "messageId": "8c29",
+      "id": "74f2",
+      "userId": "6464",
+      "messageId": "6464",
       "message": "your request has been placed on PENDING,please wait as for any incoming messages via email"
-    },
-    {
-      "id": "bfc7",
-      "userId": "8c29",
-      "messageId": "8c29",
-      "message": "your request has been APPROVED,please wait for disbursion"
-    },
-    {
-      "id": "5285",
-      "userId": "ab61",
-      "messageId": "ab61",
-      "message": "your request has been APPROVED,please wait for disbursion"
     }
   ]
 }

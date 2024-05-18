@@ -296,7 +296,10 @@ const filteredAssets = assets.filter(item => {
                         display === 'message' && (
                             requests.length > 0 ?(<div className="innerWidth flexCenter asset-display">
                                {messageComponent}
-                            </div>):( <p>No requests available.</p>)
+                            </div>):( <div className="empty">
+                              <div className="message-empty"><p className='orangeText' >No requests available.</p></div>
+                              <div className="img-empty"><img src="./public/empty.svg" alt="" /></div>
+                            </div> )
                             
                         )
                     }

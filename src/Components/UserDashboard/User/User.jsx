@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function User() {
   const [isOpen, setIsOpen] = useState(true);
-  const { isAuthenticated,activeUser,assets,messages } = useContext(AuthContext); 
+  const { isAuthenticated,activeUser,assets,messages,fetchMessages } = useContext(AuthContext); 
   const navigate = useNavigate();
   // const [searchQuery, setSearchQuery] = useState('');
 
@@ -21,6 +21,7 @@ function User() {
   }, [isAuthenticated, navigate]);
 
   // Return JSX if authenticated
+  fetchMessages()
   if (isAuthenticated) {
     return (
       <section className="admin">
