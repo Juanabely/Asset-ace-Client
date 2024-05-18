@@ -10,43 +10,50 @@ export const AuthProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [assets, setAssets] = useState([]);
   const [activeUser, setActiveUser] = useState([]);
-  
+  const [requests,setRequests] =useState([])
+  const [messages,setMessages] = useState([])
+   
 
   const login = () => {
     setIsAuthenticated(true);
   };
 
-  async function deleteUser() {
-    const handleConfirm = window.confirm('are you sure you want to log out')
-    if (handleConfirm){
-      
-       try {
-      await axios.delete(`http://localhost:3000/active-user/${activeUser[0].id}`);
-      console.log('User deleted successfully.');
-    } catch (error) {
-      console.error('Error deleting user:', error.message)
-      console.log(activeUser[0].id);
-    }
-    }
-   
-  }
+ 
   const logout = () => {
-    // Remove the active user from the list
-    
-
-    // setActiveUser((prevActiveUsers) => {
-    //   const updatedActiveUsers = prevActiveUsers.filter(
-    //     (user) => user.username !== activeUser.username
-    //   );
-    //   return updatedActiveUsers;
-    // });
-  
-
     deleteUser();
     // You can customize other logout actions (e.g., clear tokens, reset state)
     setIsAuthenticated(false);
     setActiveUser(null)
   };
+
+  const fetchRequests = () => {
+    axios.get('http://localhost:3000/requests')
+      .then((response) => setRequests(response.data))
+      .catch((error) => console.error('Error fetching requests:', error));
+  };
+
+
+  const fetchMessages = () => {
+    axios.get('http://localhost:3000/approved')
+    .then((response) => {
+       const filteredMessages = response.data.filter(message => message.userId === activeUser.id);
+       setMessages(filteredMessages);
+     })
+    .catch((error) => console.error('Error fetching messages:', error));
+  };
+
+  useEffect(() => {
+    // Fetch users and assets as before
+    fetchRequests(); // Call fetchRequests to fetch the requests
+  }, []);
+
+
+
+  useEffect(() => {
+    fetchMessages()
+    
+  }, [activeUser.id]); // Added activeUser.id as a dependency
+   
 
   useEffect(() => {
     axios.get('http://localhost:3000/users')
@@ -58,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, users, assets, activeUser,setActiveUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, users, assets, requests, activeUser,setActiveUser,fetchRequests,messages,fetchMessages }}>
       {children}
     </AuthContext.Provider>
   );

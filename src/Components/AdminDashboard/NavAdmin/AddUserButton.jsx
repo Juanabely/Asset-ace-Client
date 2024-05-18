@@ -56,6 +56,9 @@ const AddUserButton = () => {
           <Form.Item label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
             <Input placeholder="Enter user's email" />
           </Form.Item>
+          <Form.Item label="Role" name="role" rules={[{ required: true, type: 'email' }]}>
+            <Input placeholder="Enter user's email" />
+          </Form.Item>
           <Form.Item label="Password" name="password" rules={[{ required: true }]}>
             <Input.Password placeholder="Enter user's password" />
           </Form.Item>

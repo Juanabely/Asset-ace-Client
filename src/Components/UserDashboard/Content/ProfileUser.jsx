@@ -18,8 +18,14 @@ const ProfileUserButton = (props) => {
   };
 
   return (
-    <div className='button-black flexCenter'>
-      <Button type="primary" onClick={showModal}   >
+    <div className='flexCenter' >
+      <Button type="primary" onClick={showModal}  className=' button-black' style={{
+        width:'283px',
+        justifyContent:'center',
+        alignItems:"center",
+        color:'black',
+        display:'flex'
+      }} >
         View Profile
       </Button>
       <Modal

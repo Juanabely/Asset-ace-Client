@@ -10,7 +10,7 @@ import './navuser.css'
 import AddUserButton from './AddUserButtonUser';
 import AddUserButtonUser from './AddUserButtonUser';
 
-function NavUser({setIsOpen}) {
+function NavUser({setIsOpen,messages}) {
   
   return (
     <section className="nav-admin">
@@ -25,7 +25,7 @@ function NavUser({setIsOpen}) {
         <li><a href=""><BgColorsOutlined style={{
             fontSize:'22px'
         }}/></a></li>
-        <li><a href="mobile.html"><i class="material-icons"><BellOutlined /></i></a></li>
+        <li><a href=""><i class="material-icons"><BellOutlined />{messages.length}</i></a></li>
       
       </ul>
 

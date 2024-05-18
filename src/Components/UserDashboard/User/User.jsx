@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function User() {
   const [isOpen, setIsOpen] = useState(true);
-  const { isAuthenticated,activeUser,assets } = useContext(AuthContext); 
+  const { isAuthenticated,activeUser,assets,messages } = useContext(AuthContext); 
   const navigate = useNavigate();
   // const [searchQuery, setSearchQuery] = useState('');
 
@@ -24,7 +24,7 @@ function User() {
   if (isAuthenticated) {
     return (
       <section className="admin">
-        <NavUser setIsOpen={setIsOpen}  />
+        <NavUser setIsOpen={setIsOpen} messages={messages} />
         <ContentUser isOpen={isOpen} setIsOpen={setIsOpen} activeUser={activeUser} />
       </section>
     );

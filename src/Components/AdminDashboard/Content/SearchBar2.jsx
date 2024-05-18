@@ -11,11 +11,13 @@ const suffix = (
   />
 );
 const onSearch = (value, _e, info) => console.log(info?.source, value);
-const SearchBar2 = () => (
+const SearchBar2 = ({setSearchQuery,searchQuery}) => (
   <Space direction="vertical">
     <Search
-      placeholder="search user"
+      placeholder="search "
       onSearch={onSearch}
+      value={searchQuery}
+      onChange={(e)=> setSearchQuery(e.target.value)}
       style={{
         width: 200,
       }}

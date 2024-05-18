@@ -104,9 +104,9 @@ a {
   margin-top: 20px;
 }
 .button-black{
-  font-weight: 500;
+  font-weight: 500 !important;
   padding: 0.6rem 1.4rem;
-  width: 120px;
+  width: 120px ; 
   color: black;
   background: transparent;
   border:0.5px solid grey;
@@ -121,13 +121,26 @@ a {
 .button-black:hover{
   cursor: pointer;
   transform: scale(1.1);
-  background: black;
-  color: white;
+  background: black !important;
+  color: white !important;
 }
 .formik{
   margin-top: 200px;
   width: 100vw !important;
   height: 100%;
+}
+.buttons{
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0px;
+}
+.buttons>:nth-last-child(1){
+  background: red;
+}
+.buttons>:nth-last-child(3){
+  background: rgb(5, 177, 20);
 }
 
 /* media queries */

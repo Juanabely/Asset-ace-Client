@@ -34,9 +34,10 @@ const Login = () => {
         // Pass the user's details to the login function
         console.log('login successfull')
         console.log(matcheduser)
+        
         if (matcheduser.role === 'manager') {
           navigate('/admin'); // Redirect managers to the admin dashboard
-        } else if (matcheduser.role === 'chef') {
+        } else if (matcheduser.role === 'chef'||'cleaning'||'security'||'finance') {
           navigate('/user'); // Redirect chefs to the user dashboard
         } else {
           alert('Invalid role. Please contact an administrator.');

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Admin() {
   const [isOpen, setIsOpen] = useState(true);
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, logout,requests } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true); // Add loading state
 
@@ -36,7 +36,7 @@ function Admin() {
 
   return (
     <section className="admin">
-      <NavAdmin setIsOpen={setIsOpen} />
+      <NavAdmin setIsOpen={setIsOpen} requests={requests} />
       <Content isOpen={isOpen} setIsOpen={setIsOpen} />
     </section>
   );

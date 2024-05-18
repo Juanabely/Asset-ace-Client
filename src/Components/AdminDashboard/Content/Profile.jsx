@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 
-const ProfileButton = (props) => {
+const Profile = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -19,7 +19,14 @@ const ProfileButton = (props) => {
 
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" onClick={showModal}  className=' button-black' style={{
+        width:'280px',
+        justifyContent:'center',
+        alignItems:"center",
+        color:'black',
+        display:'flex',
+        padding: '0.8rem 1.8rem'
+      }} >
         View Profile
       </Button>
       <Modal
@@ -37,4 +44,4 @@ const ProfileButton = (props) => {
   );
 };
 
-export default ProfileButton;
+export default Profile;

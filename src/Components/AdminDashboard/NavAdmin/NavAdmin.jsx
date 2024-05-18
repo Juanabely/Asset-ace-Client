@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import SearchBar from './Search'
 import { BellOutlined,BgColorsOutlined } from '@ant-design/icons'
 import { CgProfile } from "react-icons/cg";
@@ -8,9 +8,11 @@ import { MenuUnfoldOutlined } from '@ant-design/icons';
 import 'materialize-css/dist/css/materialize.min.css';
 import './navadmin.css'
 import AddUserButton from './AddUserButton';
+import { message } from 'antd';
 
-function NavAdmin({setIsOpen}) {
-  
+
+function NavAdmin({setIsOpen,requests}) {
+ 
   return (
     <section className="nav-admin">
         <nav>
@@ -20,13 +22,15 @@ function NavAdmin({setIsOpen}) {
       
       <ul class="right hide-on-med-and-down">
         <li><SearchBar/></li>
-        <li><a href="Text" style={{
+        {/* <li><a href="Text" style={{
             fontSize:'20px',
             margin:'0 20px 0 0'
-        }}>Add asset</a></li>
+        }}>Add asset</a></li> */}
         <li><a href=""><BgColorsOutlined style={{
             fontSize:'22px'
         }}/></a></li>
+        <li><a><i class="material-icons"><BellOutlined />{requests.length}</i></a></li>
+        
     
       </ul>
      <div className='flexCenter'> <AddUserButton/></div>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect, useContext} from 'react'
+  import React,{useState,useEffect, useContext} from 'react'
 import './contentuser.css'
 import SearchBar2User from './SearchBar2User'
 import DropUser from './DropUser'
@@ -6,17 +6,18 @@ import { BsFillFilterSquareFill } from "react-icons/bs";
 import AssetsUser from './Assets/AssetsUser';
 import Footer from '../../Public routes/Footer/Footer'
 import OutsideClickHandler from 'react-outside-click-handler'
-import EmployeesUser from './Assets/EmployeesUser';
 import { AuthContext } from '../../AuthProvider';
 import ProfileUserButton from './ProfileUser';
+import MessageUser from './Assets/MessageUser';
+import MyAssetsUser from './Assets/MyAssetsUser';
 
 
-
-
-
-function ContentUser({ isOpen,setIsOpen,activeUser }) {
-   const{assets,users} =useContext(AuthContext)
+function ContentUser({ isOpen,setIsOpen,activeUser,fetchRequests}) {
+   const{assets,users,messages,fetchMessages} =useContext(AuthContext)
    const [searchQuery, setSearchQuery] = useState('');
+
+   const MyAssets = assets.filter(asset => Number(asset.id) === activeUser.assetId);
+
 
    const filteredAssets = assets.filter(item => {
     const searchQueryLowerCase = searchQuery.toString().toLowerCase();
@@ -40,14 +41,17 @@ function ContentUser({ isOpen,setIsOpen,activeUser }) {
         name={item.name}
         image={item.image}
         condition={item.condition}
+        number={item.number}
+        dispursed={item.dispursed}
+        id={item.id}
         key={i}
         />
     ))
-    const employeeUserComponent= filteredUsers.map((item,i)=>(
-        <EmployeesUser
-        username={item.username}
+    const employeeUserComponent= MyAssets.map((item,i)=>(
+        <MyAssetsUser
+        name={item.name}
         image={item.image}
-        role={item.role}
+        condition={item.condition}
         key={i}
         />
     ))
@@ -58,6 +62,11 @@ function ContentUser({ isOpen,setIsOpen,activeUser }) {
     role ={activeUser.role}
     />
    )
+   const messageUserComponent = messages.map ((item,i)=>(
+    <MessageUser
+    msg={item.message}
+    />
+   ))
 
 const [display,setDisplay]=useState('assets');
 
@@ -90,12 +99,12 @@ const [display,setDisplay]=useState('assets');
                 <div className="circle"><img src={activeUser.image} alt="" /></div>
                 <span className='span'>{activeUser.userName}</span>
                 <span className='span2'>Refresh profile</span>
-                {profileUserButton}
-                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('assets'); }} >My Assets</button>
-<button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('employees'); }}>Assets</button>
+                <div> {profileUserButton}</div>
+                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('assets'); }} >Assets</button>
+<button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('employees'); }}>My Assets</button>
 
-                <button className="button-black">Message</button>
-                <button className="button-black">Reviews</button>
+<button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('message');fetchMessages() }}>Message</button>
+               
             </div> : null
             }
             
@@ -114,7 +123,15 @@ const [display,setDisplay]=useState('assets');
                         display === 'employees' &&(
                             <>
                             <span className="blueText title">
-                        Employees({filteredUsers.length})</span>
+                        My asssets({MyAssets.length})</span>
+                            </>
+                        )
+                    }
+                     {
+                        display === 'message' &&(
+                            <>
+                            <span className="blueText title">
+                        Messages({messages.length})</span>
                             </>
                         )
                     }
@@ -146,6 +163,14 @@ const [display,setDisplay]=useState('assets');
                             <div className="flexCenter innerWidth asset-display">
                                {employeeUserComponent}
                             </div>
+                        )
+                    }
+                    {
+                        display === 'message' && (
+                            messages.length > 0 ?(<div className="innerWidth flexCenter asset-display">
+                               {messageUserComponent}
+                            </div>):( <p className='orangeText'> No notifications at the moment. <br /> <p>Refresh page </p></p>)
+                            
                         )
                     }
                 </div>

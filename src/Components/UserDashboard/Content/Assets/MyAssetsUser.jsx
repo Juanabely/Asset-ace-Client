@@ -4,7 +4,7 @@ import { AuthContext } from '../../../AuthProvider';
 
 const { Meta } = Card;
 
-const AssetsUser = (props) => {
+const MyAssetsUser = (props) => {
   const{activeUser} = useContext(AuthContext)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isRequestModalVisible, setIsRequestModalVisible] = useState(false);
@@ -67,15 +67,14 @@ const AssetsUser = (props) => {
         cover={<img alt="example" src={props.image} />}
         onClick={showModal}
       >
-        <Meta title={props.name} description={props.condition} />
+        <Meta title={props.name} description={`last known condition: ${props.condition}`} />
       </Card>
 
       <Modal title={props.name} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
       <p>Details for <span className='orangeText'>{props.name}</span> </p>
-        <p>{props.name} are {props.number} in total</p>
         <p>The Asset is in a <span className="orangeText">{props.condition}</span>  condition</p>
-        <p>Dispursion of this asset is <span className="orangeText">{props.dispursed}</span> </p>
-        <Button type="primary" onClick={showRequestModal}>Request asset</Button>
+        <br />
+        <Button type="primary" onClick={showRequestModal}>Request repair</Button>
       </Modal>
 
       <Modal title="Request Asset" visible={isRequestModalVisible} onOk={handleRequestOk} onCancel={handleRequestCancel}>
@@ -86,10 +85,13 @@ const AssetsUser = (props) => {
           <Form.Item name="department" label="Department" rules={[{ required: true, message: 'Please input the department!' }]}>
             <Input placeholder="Enter department" />
           </Form.Item>
+          <Form.Item name="reason" label="Reason for request" rules={[{ required: true, message: 'Please input the reason!' }]}>
+            <Input placeholder="Enter reason for reapair" />
+          </Form.Item>
         </Form>
       </Modal>
     </section>
   );
 };
 
-export default AssetsUser;
+export default MyAssetsUser;

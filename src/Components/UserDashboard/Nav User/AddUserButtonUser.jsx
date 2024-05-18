@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Modal, Form, Input, Select, DatePicker } from 'antd';
+import { AuthContext } from '../../AuthProvider';
 
 const AddUserButtonUser = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
+  const{activeUser,fetchRequests} =useContext(AuthContext)
 
   const handleShowModal = () => {
     setVisible(true);
@@ -16,26 +18,29 @@ const AddUserButtonUser = () => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields(); // Validate form fields
-      const response = await fetch('http://192.168.8.20:3000/assets', {
+      const response = await fetch('http://localhost:3000/requests', {
         method: 'post',
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(values), // Send form values to the server
+        body: JSON.stringify({id:`${activeUser.id}`,...values}), // Send form values to the server
       });
-
+       console.log(activeUser)
       if (!response.ok) {
         throw new Error('Failed to request asset');
       }
 
       console.log('Asset requested successfully');
+      console.log(activeUser)
       alert('Asset requested successfully');
+      fetchRequests()
       form.resetFields(); // Clear form fields
       setVisible(false); // Close the modal
     } catch (error) {
       console.error('Requesting asset failed:', error);
       alert('Requesting asset failed. Please retry after a few seconds.');
     }
+    
   };
 
   return (
@@ -51,6 +56,9 @@ const AddUserButtonUser = () => {
       >
         <Form form={form}>
           <Form.Item label="Asset Name" name="name" rules={[{ required: true }]}>
+            <Input placeholder="Enter asset name" />
+          </Form.Item>
+          <Form.Item label="User Name" name="user" rules={[{ required: true }]}>
             <Input placeholder="Enter asset name" />
           </Form.Item>
           <Form.Item label="Description" name="description" rules={[{ required: true }]}>
