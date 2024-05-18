@@ -48,10 +48,11 @@ useEffect(() => {
           background: 'aliceblue'
         }}
       >
-        <p>Employees name: {props.name}</p>
+        <p>Employees email: {props.username}</p>
         <p>Item description: {props.description}</p>
         <p>Priority: {props.priority}</p>
         <p>Date needed: {props.dateRequired}</p>
+        <p>Reason: {props.reason}</p>
         <p>Employee department: {props.department}</p>
         <p>Previously owned: {props.previouslyOwned}</p>
         <p>Item quantity: {props.Quantity}</p>

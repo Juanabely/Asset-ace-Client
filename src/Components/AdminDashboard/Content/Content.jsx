@@ -176,12 +176,13 @@ const filteredAssets = assets.filter(item => {
     ))
     const messageComponent= filteredRequests.map((item,i)=>(
         <Message
-        user={item.user}
+        username={item.username}
         description={item.description}
         priority={item.priority}
         department={item.department}
         previouslyOwned={item.previouslyOwned}
         dateRequired={item.dateRequired}
+        reason={item.reason}
         quantity={item.quantity}
         id={item.id}
         key={i}
@@ -232,7 +233,6 @@ const filteredAssets = assets.filter(item => {
                 <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('employees'); }}>Employees</button>
 
                 <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('message');fetchRequests() }}>Message</button>
-                <button className="button-black">Reviews</button>
             </div> : null
             }
             
