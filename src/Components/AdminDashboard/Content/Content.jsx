@@ -11,7 +11,8 @@ import { AuthContext } from '../../AuthProvider';
 import Profile from './Profile';
 import Message from './Assets/Message';
 import axios from 'axios';
-import { message } from 'antd';
+import { Spin } from 'antd';
+
 
 
 
@@ -21,25 +22,48 @@ function Content({ isOpen,setIsOpen }) {
 const [display,setDisplay]=useState('assets');
 const {activeUser, assets,users,requests,setRequests,fetchRequests} = useContext(AuthContext);
 const [searchQuery, setSearchQuery] = useState('');
+const [loading, setLoading] = useState(false);
+
+
+const manager={
+  display : activeUser.role === 'Manager' ? 'none' : ''
+}
+const Pmanager={
+  display : activeUser.role === 'projectManager' ? 'none' : ''
+}
 
 // Inside Content component
 const handleAccept = async (itemId) => {
     try {
         // Validate form fields
-        const response = await fetch('http://localhost:3000/approved', {
-          method: 'post',
+        setLoading(true)
+        const response = await fetch(`http://127.0.0.1:5000/requests/${itemId}`, {
+          method: 'PATCH',
           headers: {
             'content-type': 'application/json',
           },
-          body: JSON.stringify({userId:`${itemId}`,messageId:`${itemId}` ,message:'your request has been APPROVED,please wait for disbursion'}), // Send form values to the server
+          body: JSON.stringify({ status: 'approved' }), // Update the status to 'accepted'
         });
-  
+    
         if (!response.ok) {
-          throw new Error('Failed to request asset');
+          setLoading(false)
+          swal({
+            title: "Failed!",
+            text: "Request already updated!",
+            icon: "error",
+            button: "OK!",
+          })
+          throw new Error('Failed to update request status');
+          
         }
   
         console.log('Message sent successfully');
-        alert('Message sent successfully');
+        swal({
+          title: "Sent!",
+          text: "Your message has been successfully sent!",
+          icon: "success",
+          button: "OK!",
+        });
 
 
       const deleteResponse = await axios.delete(`http://localhost:3000/requests/${itemId}`);
@@ -59,27 +83,41 @@ const handleAccept = async (itemId) => {
 const handlePending = async (itemId) => {
     try {
         // Validate form fields
-        const response = await fetch('http://localhost:3000/approved', {
-          method: 'post',
+        setLoading(true)
+        const response = await fetch(`http://127.0.0.1:5000/requests/${itemId}`, {
+          method: 'PATCH',
           headers: {
             'content-type': 'application/json',
           },
-          body: JSON.stringify({userId:`${itemId}`,messageId:`${itemId}` ,message:'your request has been placed on PENDING,please wait as for any incoming messages via email'}), // Send form values to the server
+          body: JSON.stringify({ status: 'pending' }), // Update the status to 'accepted'
         });
-  
+    
         if (!response.ok) {
-          throw new Error('Failed to request asset');
+          setLoading(false)
+          swal({
+            title: "Failed!",
+            text: "Request already updated!",
+            icon: "error",
+            button: "OK!",
+          })
+          throw new Error('Failed to update request status');
+          
         }
   
         console.log('Message sent successfully');
-        alert('Message sent successfully');
+        swal({
+          title: "Sent!",
+          text: "Your message has been successfully sent!",
+          icon: "success",
+          button: "OK!",
+        });
 
 
-      const deleteResponse = await axios.delete(`http://localhost:3000/requests/${itemId}`);
-      fetchRequests()
-      if (!deleteResponse.ok) {
-        throw new Error('Failed to delete request');
-      }
+      // const deleteResponse = await axios.delete(`http://localhost:3000/requests/${itemId}`);
+      // fetchRequests()
+      // if (!deleteResponse.ok) {
+      //   throw new Error('Failed to delete request');
+      // }
       
   
       // Refresh the requests list
@@ -92,27 +130,41 @@ const handlePending = async (itemId) => {
 const handleDecline = async (itemId) => {
     try {
         // Validate form fields
-        const response = await fetch('http://localhost:3000/approved', {
-          method: 'post',
+        setLoading(true)
+        const response = await fetch(`http://127.0.0.1:5000/requests/${itemId}`, {
+          method: 'PATCH',
           headers: {
             'content-type': 'application/json',
           },
-          body: JSON.stringify({userId:`${itemId}`,messageId:`${itemId}` ,message:'your request has been DECLINED ,please forward any concerns to management via the home page contacts'}), // Send form values to the server
+          body: JSON.stringify({ status: 'rejected' }), // Update the status to 'accepted'
         });
-  
+    
         if (!response.ok) {
-          throw new Error('Failed to request asset');
+          setLoading(false)
+          swal({
+            title: "Failed!",
+            text: "Request already updated!",
+            icon: "error",
+            button: "OK!",
+          })
+          throw new Error('Failed to update request status');
+          
         }
   
         console.log('Message sent successfully');
-        alert('Message sent successfully');
+        swal({
+          title: "Sent!",
+          text: "Your message has been successfully sent!",
+          icon: "success",
+          button: "OK!",
+        });
 
 
-      const deleteResponse = await axios.delete(`http://localhost:3000/requests/${itemId}`);
-      fetchRequests()
-      if (!deleteResponse.ok) {
-        throw new Error('Failed to delete request');
-      }
+      // const deleteResponse = await axios.delete(`http://localhost:3000/requests/${itemId}`);
+      // fetchRequests()
+      // if (!deleteResponse.ok) {
+      //   throw new Error('Failed to delete request');
+      // }
       
   
       // Refresh the requests list
@@ -150,7 +202,7 @@ const filteredAssets = assets.filter(item => {
         const searchQueryLowerCase = searchQuery.toString().toLowerCase();
     
         return (
-      items.id.toLowerCase().includes(searchQueryLowerCase)
+      items.urgency.toLowerCase().includes(searchQueryLowerCase)
     );}
    
     
@@ -159,7 +211,7 @@ const filteredAssets = assets.filter(item => {
     const assetComponent= filteredAssets.map((item,i)=>(
         <Assets
         name={item.name}
-        image={item.image}
+        image={item.image_url}
         condition={item.condition}
         number={item.number}
         dispursed={item.dispursed}
@@ -169,7 +221,7 @@ const filteredAssets = assets.filter(item => {
     const employeeComponent= filteredUsers.map((item,i)=>(
         <Employees
         username={item.username}
-        image={item.image}
+        image={item.profile_picture}
         role={item.role}
         key={i}
         />
@@ -189,6 +241,7 @@ const filteredAssets = assets.filter(item => {
         onAccept={handleAccept}
         onPending={handlePending}
         onDecline={handleDecline}
+        loading={loading}
        
         />
     ))
@@ -225,14 +278,16 @@ const filteredAssets = assets.filter(item => {
             {
                 isOpen?<div className="flexColCenter content-right rit" >
                 <button className="buttonn">{activeUser.role}</button>
-                <div className="circle"><img src={activeUser.image} alt="profile" /></div>
+                <div className="circle"><img src={activeUser.profile_picture} alt="profile" /></div>
+                
                 <span className='span'>Admin</span>
                 <span className='span2'>Refresh profile</span>
                 <div>{buttonComponent}</div>
                 <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('assets'); }} >Assets</button>
                 <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('employees'); }}>Employees</button>
 
-                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('message');fetchRequests() }}>Message</button>
+                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('message');fetchRequests() }} style={manager}>Message</button>
+                <button className="button-black" onClick={(event) => { event.stopPropagation(); setDisplay('adduser');fetchRequests() }} style={Pmanager}>Add assets</button>
             </div> : null
             }
             

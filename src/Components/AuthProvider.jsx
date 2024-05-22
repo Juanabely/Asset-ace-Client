@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [activeUser, setActiveUser] = useState([]);
   const [requests,setRequests] =useState([])
   const [messages,setMessages] = useState([])
+  const[token,setToken] =useState([])
    
 
   const login = () => {
@@ -27,19 +28,45 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchRequests = () => {
-    axios.get('http://localhost:3000/requests')
+    axios.get('http://127.0.0.1:5000/requests',{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((response) => setRequests(response.data))
       .catch((error) => console.error('Error fetching requests:', error));
   };
 
 
   const fetchMessages = () => {
-    axios.get('http://localhost:3000/approved')
+    axios.get('http://127.0.0.1:5000/requests',{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    })
     .then((response) => {
-       const filteredMessages = response.data.filter(message => message.userId === activeUser.id);
+       const filteredMessages = response.data.filter(message => message.asset.id === activeUser.id);
        setMessages(filteredMessages);
      })
     .catch((error) => console.error('Error fetching messages:', error));
+  };
+  const fetchAssets = () => {
+    axios.get('http://127.0.0.1:5000/assets',{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then((response) => setAssets(response.data))
+    .catch((error) => console.error('Error fetching assets:', error));
+  };
+  const fetchUsers = () => {
+    axios.get('http://127.0.0.1:5000/employees',{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then((response) => setUsers(response.data))
+    .catch((error) => console.error('Error fetching users:', error));
   };
 
   useEffect(() => {
@@ -56,16 +83,16 @@ export const AuthProvider = ({ children }) => {
    
 
   useEffect(() => {
-    axios.get('http://localhost:3000/users')
-      .then((response) => setUsers(response.data))
-      .catch((error) => console.error('Error fetching users:', error));
-    axios.get('http://localhost:3000/assets')
-      .then((response) => setAssets(response.data))
-      .catch((error) => console.error('Error fetching assets:', error));
+    fetchAssets()
+    
+  }, []);
+  useEffect(() => {
+    fetchUsers()
+    
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, users, assets, requests, activeUser,setActiveUser,fetchRequests,messages,fetchMessages }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, users,fetchUsers, assets, requests, activeUser,setActiveUser,fetchRequests,messages,fetchMessages,token,setToken,fetchAssets }}>
       {children}
     </AuthContext.Provider>
   );

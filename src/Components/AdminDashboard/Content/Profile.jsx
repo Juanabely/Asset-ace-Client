@@ -20,7 +20,7 @@ const Profile = (props) => {
   return (
     <div>
       <Button type="primary" onClick={showModal}  className=' button-black' style={{
-        width:'280px',
+        width:'250px',
         justifyContent:'center',
         alignItems:"center",
         color:'black',

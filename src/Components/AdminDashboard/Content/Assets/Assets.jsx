@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Card, Modal } from 'antd';
+import { Card, Modal ,Spin} from 'antd';
 
 const { Meta } = Card;
 
 const Assets = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -28,7 +29,18 @@ const Assets = (props) => {
           outline: '1px solid rgba(128, 128, 128, 0.404)',
           padding: '2px',
         }}
-        cover={<img alt="example" src={props.image} style={{ maxHeight: '200px' }} />}
+        cover={
+          <>
+            {loading && <Spin />}
+            <img
+              alt="example"
+              src={props.image}
+              style={{ maxHeight: '200px', display: loading ? 'none' : 'block' }}
+              onLoad={() => setLoading(false)}
+              onError={() => setLoading(false)}
+            />
+          </>
+        }
         onClick={showModal}
       >
         <Meta title={props.name} description="www.instagram.com" />

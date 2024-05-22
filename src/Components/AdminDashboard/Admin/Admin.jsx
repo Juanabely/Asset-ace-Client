@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Admin() {
   const [isOpen, setIsOpen] = useState(true);
-  const { isAuthenticated, logout, requests, fetchRequests } = useContext(AuthContext);
+  const { isAuthenticated, logout, requests, fetchRequests ,activeUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -18,26 +18,21 @@ function Admin() {
     setLoading(false); // Mark loading as complete
   }, [isAuthenticated, navigate]);
 
-  useEffect(() => {
-    const handleBackButton = () => {
-      logout();
-      navigate('/form');
-    };
-    window.onpopstate = handleBackButton;
-    return () => {
-      window.onpopstate = null;
-    };
-  }, [navigate, logout]);
+   useEffect(() => {
+    // This effect will run whenever the `messages` state changes
+  
+    fetchRequests
+    // You can call fetchMessages here if you need to fetch the latest messages from the backend
+    // fetchMessages();
+  }, [requests]);
 
   if (loading) {
     return null; // Render nothing while loading
   }
 
-  fetchRequests();
-
   return (
     <section className="admin">
-      <NavAdmin setIsOpen={setIsOpen} requests={requests} />
+      <NavAdmin setIsOpen={setIsOpen} requests={requests} activeUser ={activeUser} />
       <Content isOpen={isOpen} setIsOpen={setIsOpen} />
     </section>
   );

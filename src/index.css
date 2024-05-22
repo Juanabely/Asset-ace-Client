@@ -125,9 +125,15 @@ a {
   color: white !important;
 }
 .formik{
-  margin-top: 200px;
-  width: 100vw !important;
-  height: 100%;
+  margin-top: 0px;
+  /* width: 700vw !important; */
+  height: 900px;
+  background-image: url(../public/login.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  overflow: hidden;
+  
 }
 .buttons{
   display: flex;
@@ -141,6 +147,9 @@ a {
 }
 .buttons>:nth-last-child(3){
   background: rgb(5, 177, 20);
+}
+.menu{
+  display: none;
 }
 
 /* media queries */
@@ -156,6 +165,7 @@ a {
   .paddings {
     padding: 4rem;
   }
+  
 }
 
 @media (min-width: 1280px), (min-width: 768px) {
@@ -171,6 +181,20 @@ a {
   }
   .orangeText {
     font-size: 1.2rem;
+  }
+  .adduser{
+    display: none;
+  }
+  .menu{
+    display: contents;
+    position: absolute;
+    left: 10%;
+  }
+  .circle{
+    margin-left: -120px;
+  }
+  .span{
+    margin-top: 120px;
   }
   
   

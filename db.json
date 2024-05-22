@@ -27,7 +27,7 @@
       "username": "koech",
       "email": "eugene@gmail.com",
       "password": "12345678@a",
-      "image":"https://images.playground.com/b77aa77a07be4737abf75a30ed57e006.jpeg",
+      "image": "https://images.playground.com/b77aa77a07be4737abf75a30ed57e006.jpeg",
       "confirmPassword": "12345678@a"
     },
     {
@@ -66,7 +66,7 @@
       "assetId": 5,
       "userName": "sang",
       "email": "sang@gmail.com",
-      "image":"https://images.playground.com/2748383f787f4227bcdfa67de35c36a5.jpeg",
+      "image": "https://images.playground.com/2748383f787f4227bcdfa67de35c36a5.jpeg",
       "password": "12345678",
       "confirmPassword": "12345678"
     }
@@ -148,7 +148,13 @@
   "requests": [],
   "approved": [
     {
-      "id": "74f2",
+      "id": "5be8",
+      "userId": "8c29",
+      "messageId": "8c29",
+      "message": "your request has been APPROVED,please wait for disbursion"
+    },
+    {
+      "id": "dead",
       "userId": "6464",
       "messageId": "6464",
       "message": "your request has been placed on PENDING,please wait as for any incoming messages via email"

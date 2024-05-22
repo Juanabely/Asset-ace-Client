@@ -2,7 +2,7 @@ import React,{useContext, useState} from 'react'
 import SearchBar from './Search'
 import { BellOutlined,BgColorsOutlined } from '@ant-design/icons'
 import { CgProfile } from "react-icons/cg";
-import { MenuUnfoldOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined } from '@ant-design/icons';
 
 
 import 'materialize-css/dist/css/materialize.min.css';
@@ -11,14 +11,26 @@ import AddUserButton from './AddUserButton';
 import { message } from 'antd';
 
 
-function NavAdmin({setIsOpen,requests}) {
+function NavAdmin({setIsOpen,requests,activeUser}) {
+  const bellStyle = {
+    color: requests.length > 0 ? 'blue' : 'black',
+    display: activeUser.role === 'Manager' ? 'none' : ''
+  };
+  // const Manager ={
+    
+  // }
  
   return (
     <section className="nav-admin">
         <nav>
     <div class="nav-wrapper white">
    
-      <a href="#!" class="brand-logo"><i class="material-icons"><span className='menu' onClick={()=>setIsOpen((prev)=>!prev)}> <MenuUnfoldOutlined /></span></i><img src="./logo.svg" alt="" /> <span className='asset-ace'>Asset-Ace</span>  </a>
+      <a href="#!" class="brand-logo">
+        
+      <img src="./logo.svg" alt="" /> 
+      <span className='asset-ace'>Asset-Ace</span> 
+      <i class="material-icons"><span className='menu' onClick={()=>setIsOpen((prev)=>!prev)}> <MenuFoldOutlined /></span></i>
+       </a>
       
       <ul class="right hide-on-med-and-down">
         <li><SearchBar/></li>
@@ -29,11 +41,11 @@ function NavAdmin({setIsOpen,requests}) {
         <li><a href=""><BgColorsOutlined style={{
             fontSize:'22px'
         }}/></a></li>
-        <li><a><i class="material-icons"><BellOutlined />{requests.length}</i></a></li>
+        <li><a><i className="material-icons" style={bellStyle} ><BellOutlined style={bellStyle}/>{requests.length}</i></a></li>
         
     
       </ul>
-     <div className='flexCenter'> <AddUserButton/></div>
+     <div className='flexCenter adduser'> <AddUserButton/></div>
     </div>
   </nav>
     </section>

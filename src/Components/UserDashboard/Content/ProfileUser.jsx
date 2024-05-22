@@ -20,7 +20,7 @@ const ProfileUserButton = (props) => {
   return (
     <div className='flexCenter' >
       <Button type="primary" onClick={showModal}  className=' button-black' style={{
-        width:'283px',
+        width:'250px',
         justifyContent:'center',
         alignItems:"center",
         color:'black',

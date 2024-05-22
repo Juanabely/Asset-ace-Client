@@ -1,60 +1,86 @@
-import React, { useContext } from 'react';
+import React, { useContext,useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input,Alert } from 'antd';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Password from 'antd/es/input/Password';
 import { AuthContext } from '../AuthProvider'; // Import the AuthContext
+import swal from 'sweetalert';
+import { Spin } from 'antd';
+
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
+  username: Yup.string().required('Required'),
+  status: Yup.string().required('Required'),
   password: Yup.string().required('Required'),
 });
 
 const Login = () => {
-  const { login ,users,setActiveUser } = useContext(AuthContext); // Use the login function from the AuthContext
+  const { login ,activeUser,setActiveUser,setToken,fetchAssets,fetchUsers,requests } = useContext(AuthContext); // Use the login function from the AuthContext
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
   const { from } = location.state || { from: { pathname: "/admin" } };
   const fromProtectedRoute = location.state?.fromProtectedRoute || false;
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
+      status:'',
       password: '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const matcheduser= users.find((user)=>user.email === values.email && user.password === values.password)
-
-      if (matcheduser) {
-        login();
-        setActiveUser(matcheduser)
-        
-        // Pass the user's details to the login function
-        console.log('login successfull')
-        console.log(matcheduser)
-        
-        if (matcheduser.role === 'manager') {
-          navigate('/admin'); // Redirect managers to the admin dashboard
-        } else if (matcheduser.role === 'chef'||'cleaning'||'security'||'finance') {
-          navigate('/user'); // Redirect chefs to the user dashboard
-        } else {
-          alert('Invalid role. Please contact an administrator.');
+      setLoading(true);
+      try {
+        // Send a POST request to the authentication API
+        const response = await fetch('http://127.0.0.1:5000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values), // Send form values to the server
+        });
+    
+        // Check if the request was successful
+        if (!response.ok) {
+          console.log(JSON.stringify(values))
+          throw new Error('Authentication failed');
         }
-      } else {
-        alert('Invalid credentials. Please check and try again.');
+    
+        // Parse the response data
+        const data = await response.json();
+    
+        // Store the user data and token
+        setActiveUser(data.user);
+        localStorage.setItem('token', data.token);
+        setToken(data.token)
+    
+        // Log in the user and redirect them to the appropriate page
+        login();
+        swal({
+          title: "Login!",
+          text: "Logged in succesfully!",
+          icon: "success",
+          button: "Get started!",
+        });
+        fetchAssets()
+        fetchUsers()
+        console.log(data.user)
+        
+        console.log(requests)
+        if (data.user.role === 'Manager' || data.user.role === 'projectManager') {
+          navigate('/admin');
+        } else {
+          navigate('/user');
+        }
+      } catch (error) {
+        console.error('Authentication failed:', error);
       }
-      // await fetch('http://192.168.56.1:3000/active-user',
-      // {
-      //  method:'POST',
-      //  headers:{
-      //   'Content-Type':'application/json'
-      //  } ,
-      //  body:JSON.stringify({username:matcheduser.username,role:matcheduser.role,email:matcheduser.email, id:matcheduser.id,image:matcheduser.image})
-      // })
-      
+      setLoading(false)
     },
+    
   });
 
   return (
@@ -63,28 +89,53 @@ const Login = () => {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 800 }}
+        style={{ width: 690,height:690,fontWeight:600 ,overflow:'hidden'}}
         initialValues={{ remember: true }}
         onFinish={formik.handleSubmit}
         onFinishFailed={formik.handleSubmit}
         autoComplete="off"
       >
         <Form.Item
-          label="Email"
-          name="email"
+          label="username"
+          name="username"
           rules={[
             {
               required: true,
               message: 'Please input your email!',
             },
           ]}
+          style={{marginLeft:'90px',marginTop:'65px',borderRadius:'30px'}}
         >
           <Input
-            name="email"
-            type="email"
-            value={formik.values.email}
+            name="username"
+            type="string"
+            value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            style={{borderRadius:'5px'}}
+          />
+          {formik.touched.email && formik.errors.email ? (
+            <div>{formik.errors.email}</div>
+          ) : null}
+        </Form.Item>
+        <Form.Item
+          label="status"
+          name="status"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your email!',
+            },
+          ]}
+          style={{marginLeft:'90px',marginTop:'0px',borderRadius:'30px'}}
+        >
+          <Input
+            name="status"
+            type="string"
+            value={formik.values.status}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            style={{borderRadius:'5px'}}
           />
           {formik.touched.email && formik.errors.email ? (
             <div>{formik.errors.email}</div>
@@ -100,12 +151,14 @@ const Login = () => {
               message: 'Please input your password!',
             },
           ]}
+          style={{marginLeft:'90px'}}
         >
           <Password
             name="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            style={{borderRadius:'5px'}}
           />
           {formik.touched.password && formik.errors.password ? (
             <div>{formik.errors.password}</div>
@@ -129,9 +182,9 @@ const Login = () => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+          <Button type="primary" htmlType="submit" disabled={loading}>
+  {loading ? <Spin /> : 'Submit'}
+</Button>
         </Form.Item>
       </Form>
     </section>

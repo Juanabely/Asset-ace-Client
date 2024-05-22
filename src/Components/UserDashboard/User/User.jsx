@@ -11,7 +11,7 @@ function User() {
   // const [searchQuery, setSearchQuery] = useState('');
 
   // Debugging: Log authentication status
-  console.log('Is authenticated:', isAuthenticated,assets);
+  // console.log('Is authenticated:', isAuthenticated,assets);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -20,12 +20,14 @@ function User() {
     }
   }, [isAuthenticated, navigate]);
 
-  // Return JSX if authenticated
-  fetchMessages()
+  useEffect(() => {
+     fetchMessages()
+  }, [messages]);
+ 
   if (isAuthenticated) {
     return (
       <section className="admin">
-        <NavUser setIsOpen={setIsOpen} messages={messages} />
+        <NavUser setIsOpen={setIsOpen} messages={messages} activeUser={activeUser} />
         <ContentUser isOpen={isOpen} setIsOpen={setIsOpen} activeUser={activeUser} />
       </section>
     );

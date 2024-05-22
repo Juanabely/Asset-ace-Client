@@ -10,8 +10,11 @@ import './navuser.css'
 import AddUserButton from './AddUserButtonUser';
 import AddUserButtonUser from './AddUserButtonUser';
 
-function NavUser({setIsOpen,messages}) {
-  
+function NavUser({setIsOpen,messages,activeUser}) {
+  const bellStyle = {
+    color: activeUser.requests.length >= 1 ? 'blue' : 'black',
+  };
+ 
   return (
     <section className="nav-admin">
         <nav>
@@ -25,7 +28,7 @@ function NavUser({setIsOpen,messages}) {
         <li><a href=""><BgColorsOutlined style={{
             fontSize:'22px'
         }}/></a></li>
-        <li><a href=""><i class="material-icons"><BellOutlined />{messages.length}</i></a></li>
+        <li><a href=""><i className="material-icons" style={bellStyle} ><BellOutlined style={bellStyle}/>{activeUser.requests.length}</i></a></li>
       
       </ul>
 

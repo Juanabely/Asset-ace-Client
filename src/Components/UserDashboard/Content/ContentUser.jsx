@@ -16,7 +16,7 @@ function ContentUser({ isOpen,setIsOpen,activeUser,fetchRequests}) {
    const{assets,users,messages,fetchMessages} =useContext(AuthContext)
    const [searchQuery, setSearchQuery] = useState('');
 
-   const MyAssets = assets.filter(asset => Number(asset.id) === activeUser.assetId);
+   const MyAssets = assets.filter(asset => asset.id === activeUser.requests[0].id);
 
 
    const filteredAssets = assets.filter(item => {
@@ -39,7 +39,7 @@ function ContentUser({ isOpen,setIsOpen,activeUser,fetchRequests}) {
     const assetUserComponent= filteredAssets.map((item,i)=>(
         <AssetsUser
         name={item.name}
-        image={item.image}
+        image={item.image_url}
         condition={item.condition}
         number={item.number}
         dispursed={item.dispursed}
@@ -50,7 +50,7 @@ function ContentUser({ isOpen,setIsOpen,activeUser,fetchRequests}) {
     const employeeUserComponent= MyAssets.map((item,i)=>(
         <MyAssetsUser
         name={item.name}
-        image={item.image}
+        image={item.image_url}
         condition={item.condition}
         key={i}
         />
@@ -62,11 +62,10 @@ function ContentUser({ isOpen,setIsOpen,activeUser,fetchRequests}) {
     role ={activeUser.role}
     />
    )
-   const messageUserComponent = messages.map ((item,i)=>(
+   const messageUserComponent =
     <MessageUser
-    msg={item.message}
     />
-   ))
+   
 
 const [display,setDisplay]=useState('assets');
 
@@ -96,7 +95,7 @@ const [display,setDisplay]=useState('assets');
             {
                 isOpen?<div className="flexColCenter content-right rit" >
                 <button className="buttonn">{activeUser.role}</button>
-                <div className="circle"><img src={activeUser.image} alt="" /></div>
+                <div className="circle"><img src={activeUser.profile_picture} alt="" /></div>
                 <span className='span'>{activeUser.userName}</span>
                 <span className='span2'>Refresh profile</span>
                 <div> {profileUserButton}</div>
@@ -131,7 +130,7 @@ const [display,setDisplay]=useState('assets');
                         display === 'message' &&(
                             <>
                             <span className="blueText title">
-                        Messages({messages.length})</span>
+                        Messages({activeUser.requests.length})</span>
                             </>
                         )
                     }
@@ -142,7 +141,7 @@ const [display,setDisplay]=useState('assets');
                         /></div>
                         <div className="right-side"><span>sort By</span>
                         <span/>
-                        <DropUser/>
+                        <DropUser setSearchQuery={setSearchQuery} />
                         <button className='button-filter'><BsFillFilterSquareFill /></button></div>
                       
                         
@@ -167,7 +166,7 @@ const [display,setDisplay]=useState('assets');
                     }
                     {
                         display === 'message' && (
-                            messages.length > 0 ?(<div className="innerWidth flexCenter asset-display">
+                            activeUser.requests.length === 1 ?(<div className="innerWidth flexCenter asset-display">
                                {messageUserComponent}
                             </div>):( <div className="empty">
                               <div className="message-empty"><p className='orangeText' >No messages at the moment.</p></div>

@@ -1,5 +1,5 @@
 import React, { useContext, useState ,useEffect} from 'react';
-import { Card } from 'antd';
+import { Card, Spin } from 'antd';
 import axios from 'axios';
 import { AuthContext } from '../../../AuthProvider';
 
@@ -7,7 +7,7 @@ const Message = (props) => {
 const{fetchRequests,requests} =useContext(AuthContext)
 useEffect(() => {
   // This effect will run whenever the `messages` state changes
-  console.log('Messages updated:', requests);
+
   fetchRequests
   // You can call fetchMessages here if you need to fetch the latest messages from the backend
   // fetchMessages();
@@ -58,7 +58,9 @@ useEffect(() => {
         <p>Item quantity: {props.Quantity}</p>
 
         <div className="buttons">
-        <button className="buttonn" onClick={() =>{handleAction('accept', props.id);fetchRequests()} }>Accept</button>
+        <button className="buttonn" disabled={props.loading} onClick={() =>{handleAction('accept', props.id);fetchRequests()} }>
+          {props.loading ? <Spin/> : 'Accept'}
+        </button>
         <button className="buttonn" onClick={() => handleAction('pending', props.id)}>Pending</button>
         <button className="buttonn" onClick={() => handleAction('decline', props.id)}>Decline</button>
       </div>

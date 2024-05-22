@@ -4,11 +4,11 @@ import { AuthContext } from '../../../AuthProvider';
 
 
 const MessageUser = (props) => {
-    const{messages,fetchMessages} =useContext(AuthContext)
+    const{messages,fetchMessages,activeUser} =useContext(AuthContext)
     useEffect(() => {
         // This effect will run whenever the `messages` state changes
-        console.log('Messages updated:', messages);
-         fetchMessages()
+       
+         fetchMessages
         // You can call fetchMessages here if you need to fetch the latest messages from the backend
         // fetchMessages();
       }, [messages]);
@@ -29,7 +29,7 @@ const MessageUser = (props) => {
         }}
       >
         <p className='orangeText' >Request asset info .....</p>
-        <p> {props.msg}</p>
+        <p> {activeUser.requests[0].status}</p>
        
 
         <div className="buttons">

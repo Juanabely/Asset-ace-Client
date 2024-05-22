@@ -5,7 +5,7 @@ import { AuthContext } from '../../AuthProvider';
 const AddUserButtonUser = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
-  const{activeUser,fetchRequests} =useContext(AuthContext)
+  const{activeUser,fetchRequests,token} =useContext(AuthContext)
 
   const handleShowModal = () => {
     setVisible(true);
@@ -18,10 +18,11 @@ const AddUserButtonUser = () => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields(); // Validate form fields
-      const response = await fetch('http://localhost:3000/requests', {
+      const response = await fetch(' http://127.0.0.1:5000/requests', {
         method: 'post',
         headers: {
           'content-type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
         },
         body: JSON.stringify({id:`${activeUser.id}`,...values}), // Send form values to the server
       });
@@ -32,7 +33,12 @@ const AddUserButtonUser = () => {
 
       console.log('Asset requested successfully');
       console.log(activeUser)
-      alert('Asset requested successfully');
+      swal({
+        title: "Asset request sent!",
+        text: "Your request has been successfully sent!",
+        icon: "success",
+        button: "OK!",
+      });
       fetchRequests()
       form.resetFields(); // Clear form fields
       setVisible(false); // Close the modal
