@@ -13,8 +13,8 @@ export const AuthProvider = ({ children }) => {
   const [requests,setRequests] =useState([])
   const [messages,setMessages] = useState([])
   const[token,setToken] =useState([])
-   
-  const baseurl = 'https://corsproxy.io/?' + encodeURIComponent('https://server-asset-ace-1.onrender.com/');
+
+  const baseurl = 'https://thingproxy.freeboard.io/fetch/https://server-asset-ace-1.onrender.com/';
   
 
   const login = () => {
