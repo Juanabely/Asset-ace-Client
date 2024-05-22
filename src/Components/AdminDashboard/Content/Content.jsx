@@ -20,7 +20,7 @@ function Content({ isOpen,setIsOpen }) {
 
 
 const [display,setDisplay]=useState('assets');
-const {activeUser, assets,users,requests,setRequests,fetchRequests} = useContext(AuthContext);
+const {activeUser, assets,users,requests,setRequests,fetchRequests,token} = useContext(AuthContext);
 const [searchQuery, setSearchQuery] = useState('');
 const [loading, setLoading] = useState(false);
 
@@ -37,10 +37,12 @@ const handleAccept = async (itemId) => {
     try {
         // Validate form fields
         setLoading(true)
-        const response = await fetch(`http://127.0.0.1:5000/requests/${itemId}`, {
+        const response = await fetch(`https://server-asset-ace-1.onrender.com/requests/${itemId}`, {
           method: 'PATCH',
           headers: {
             'content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
+            
           },
           body: JSON.stringify({ status: 'approved' }), // Update the status to 'accepted'
         });
@@ -66,11 +68,11 @@ const handleAccept = async (itemId) => {
         });
 
 
-      const deleteResponse = await axios.delete(`http://localhost:3000/requests/${itemId}`);
-      fetchRequests()
-      if (!deleteResponse.ok) {
-        throw new Error('Failed to delete request');
-      }
+      // const deleteResponse = await axios.delete(`https://server-asset-ace.onrender.com/requests/${itemId}`);
+      // fetchRequests()
+      // if (!deleteResponse.ok) {
+      //   throw new Error('Failed to delete request');
+      // }
       
   
       // Refresh the requests list
@@ -84,10 +86,12 @@ const handlePending = async (itemId) => {
     try {
         // Validate form fields
         setLoading(true)
-        const response = await fetch(`http://127.0.0.1:5000/requests/${itemId}`, {
+        const response = await fetch(`https://server-asset-ace-1.onrender.com/requests/${itemId}`, {
           method: 'PATCH',
           headers: {
+            
             'content-type': 'application/json',
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({ status: 'pending' }), // Update the status to 'accepted'
         });
@@ -131,10 +135,11 @@ const handleDecline = async (itemId) => {
     try {
         // Validate form fields
         setLoading(true)
-        const response = await fetch(`http://127.0.0.1:5000/requests/${itemId}`, {
+        const response = await fetch(`https://server-asset-ace-1.onrender.com/requests/${itemId}`, {
           method: 'PATCH',
           headers: {
             'content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({ status: 'rejected' }), // Update the status to 'accepted'
         });

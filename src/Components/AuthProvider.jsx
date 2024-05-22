@@ -15,6 +15,8 @@ export const AuthProvider = ({ children }) => {
   const[token,setToken] =useState([])
    
 
+  const baseurl = "https://cors-anywhere.herokuapp.com/https://server-asset-ace-1.onrender.com/";
+
   const login = () => {
     setIsAuthenticated(true);
   };
@@ -28,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchRequests = () => {
-    axios.get('http://127.0.0.1:5000/requests',{
+    axios.get(`${baseurl}requests`,{
       headers:{
         'Authorization': `Bearer ${token}`
       }
@@ -39,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
 
   const fetchMessages = () => {
-    axios.get('http://127.0.0.1:5000/requests',{
+    axios.get(`${baseurl}requests`,{
       headers:{
         'Authorization': `Bearer ${token}`
       }
@@ -51,8 +53,9 @@ export const AuthProvider = ({ children }) => {
     .catch((error) => console.error('Error fetching messages:', error));
   };
   const fetchAssets = () => {
-    axios.get('http://127.0.0.1:5000/assets',{
+    axios.get(`${baseurl}assets`,{
       headers:{
+        'Access-Control-Allow-Origin': '*',
         'Authorization': `Bearer ${token}`
       }
     })
@@ -60,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     .catch((error) => console.error('Error fetching assets:', error));
   };
   const fetchUsers = () => {
-    axios.get('http://127.0.0.1:5000/employees',{
+    axios.get(`${baseurl}/employees`,{
       headers:{
         'Authorization': `Bearer ${token}`
       }

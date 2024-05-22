@@ -38,7 +38,7 @@ const AssetsUser = (props) => {
     setLoadingb(true)
     try {
       const values = await form.validateFields(); // Validate form fields
-      const response = await fetch(' http://127.0.0.1:5000/requests', {
+      const response = await fetch(' https://server-asset-ace-1.onrender.com/requests', {
         method: 'post',
         headers: {
           'content-type': 'application/json',

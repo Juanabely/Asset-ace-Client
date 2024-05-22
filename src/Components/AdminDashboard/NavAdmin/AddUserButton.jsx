@@ -16,7 +16,7 @@ const AddUserButton = () => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields(); // Validate form fields
-      const response = await fetch('http://192.168.8.20:3000/users', {
+      const response = await fetch('https://server-asset-ace-1.onrender.com/users', {
         method: 'post',
         headers: {
           'content-type': 'application/json',

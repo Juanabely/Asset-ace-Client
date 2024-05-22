@@ -16,7 +16,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const { login ,activeUser,setActiveUser,setToken,fetchAssets,fetchUsers,requests } = useContext(AuthContext); // Use the login function from the AuthContext
+  const { login ,activeUser,setActiveUser,token,setToken,fetchAssets,fetchUsers,requests } = useContext(AuthContext); // Use the login function from the AuthContext
   const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ const Login = () => {
       setLoading(true);
       try {
         // Send a POST request to the authentication API
-        const response = await fetch('http://127.0.0.1:5000/login', {
+        const response = await fetch('https://server-asset-ace-1.onrender.com/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -68,6 +68,7 @@ const Login = () => {
         fetchAssets()
         fetchUsers()
         console.log(data.user)
+        
         
         console.log(requests)
         if (data.user.role === 'Manager' || data.user.role === 'projectManager') {
