@@ -14,8 +14,8 @@ export const AuthProvider = ({ children }) => {
   const [messages,setMessages] = useState([])
   const[token,setToken] =useState([])
    
-
-  const baseurl = "https://cors-anywhere.herokuapp.com/https://server-asset-ace-1.onrender.com/";
+  const baseurl = 'https://corsproxy.io/?' + encodeURIComponent('https://server-asset-ace-1.onrender.com/');
+  
 
   const login = () => {
     setIsAuthenticated(true);
@@ -55,7 +55,6 @@ export const AuthProvider = ({ children }) => {
   const fetchAssets = () => {
     axios.get(`${baseurl}assets`,{
       headers:{
-        'Access-Control-Allow-Origin': '*',
         'Authorization': `Bearer ${token}`
       }
     })
